@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📒 All Expenses</h2>
+
+{% if expenses %}
+<table>
+    <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Amount (₹)</th>
+        <th>Action</th>
+    </tr>
+    {% for exp in expenses %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ exp.date }}</td>
+        <td>{{ exp.category }}</td>
+        <td>₹{{ "%.2f"|format(exp.amount) }}</td>
+        <td><a class="delete-btn" href="{{ url_for('delete', index=loop.index0) }}">🗑 Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Total Expense: ₹{{ "%.2f"|format(total) }}</h3>
+{% else %}
+<p>No expenses added yet.</p>
+{% endif %}
+
+{% endblock %}
